@@ -1,6 +1,9 @@
 #include <iostream>
 #include <unistd.h>
-#include "CImg.h"
+#include "../lib/CImg.templ"
+#include "modifications/B.h"
+#include "modifications/G.h"
+
 
 using namespace std;
 using namespace cimg_library;
@@ -237,8 +240,8 @@ int maxFilter(CImg<double> img){
 }
 
 int task(){
-    CImg<unsigned char> image("lenac_small.bmp");
-    displaying(image);
+    CImg<unsigned char> image("../img/color-24bit/lenac.bmp");
+    displaying(image); //append
     //darker(image);            //displaying darker image
     //brighter(image);          //displaying brighter image
     //biggerContrast(image);    //displaying image with bigger contrast
@@ -248,11 +251,15 @@ int task(){
     //vflip(image);             //displaying image after vertical flip
     //dflip(image);             //displaying image after diagonal flip
     //enlargement(image);       //displaying bigger image
-    //shrinking(image);         //displaying smaller image  
+    //shrinking(image);         //displaying smaller image
+
     return 0;
 }
 
-int main() {
+int main(int argc, char* argv[]) {
+    CImg<unsigned char> image("../img/color-24bit/lenac.bmp");
+    image.save("Original.bmp");
+    changeBrightness(image, argv[1]);
     task();
     return 0;
 }
