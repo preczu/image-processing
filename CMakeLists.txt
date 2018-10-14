@@ -43,7 +43,7 @@ include_directories(lib)
 add_executable(image-processing
         src/main.cpp
         src/modifications/B.h
-        src/modifications/B.cpp src/modifications/G.h src/modifications/G.cpp)
+        src/modifications/B.cpp src/modifications/G.h src/modifications/G.cpp src/modifications/N.cpp src/modifications/N.h)
 target_link_libraries(image-processing ${SYSTEM_LIBS})
 
 

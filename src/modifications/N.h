@@ -1,5 +1,5 @@
-#ifndef GEOMETRIC_MODIFICATIONS
-#define GEOMETRIC_MODIFICATIONS
+#ifndef N_MODIFICATIONS
+#define N_MODIFICATIONS
 
 #include "../../lib/CImg.templ"
 
@@ -12,6 +12,4 @@ CImg<int> dflip(CImg<int>);
 CImg<int> shrinking(CImg<int>, char*);
 CImg<int> enlargement(CImg<int>, char*);
 
-#endif //GEOMETRIC_MODIFICATIONS
-
-
+#endif //N_MODIFICATIONS

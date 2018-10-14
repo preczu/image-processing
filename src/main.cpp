@@ -3,7 +3,7 @@
 #include "../lib/CImg.templ"
 #include "modifications/B.h"
 #include "modifications/G.h"
-
+#include "modifications/N.h"
 
 using namespace std;
 using namespace cimg_library;
@@ -14,178 +14,6 @@ void displaying(CImg<unsigned char> img){
   img.display("Image");
 }
 
-int biggerContrast(CImg<double> img){
-  //contrast correction factor factor=259(C+255)/[255(259-C)]
-    CImg<double> bContrImg(img.width(),img.height(),1,3,0);
-    int contrast= 125;
-    float factor=(259*(contrast+255))/(255*(259-contrast));
-    for (int i=0; i<img.width(); i++){
-      for (int j=0;j<img.height();j++){
-        for (int k=0;k<3;k++){ 
-          if(((img(i,j,0,k)-128)*factor)+128<0) bContrImg(i,j,0,k)=0;
-          else if(((img(i,j,0,k)-128)*factor)+128>255) bContrImg(i,j,0,k)=255;
-          else bContrImg(i,j,0,k)=(((img(i,j,0,k)-128)*factor)+128);
-          }
-        }
-      }
-    displaying(bContrImg);
-    return 0;
-}
-
-int smallerConstrast(CImg<double> img){
-    CImg<double> sContrImg(img.width(),img.height(),1,3,0);
-    int contrast= 10;
-    float factor=(259*(contrast+255))/(255*(259-contrast));
-    for (int i=0; i<img.width(); i++){
-      for (int j=0;j<img.height();j++){
-        for (int k=0;k<3;k++){ 
-          //if(img(i,j,0,k)*factor<0) sContrImg(i,j,0,k)=0;
-          //else if(img(i,j,0,k)*factor>255) sContrImg(i,j,0,k)=255;
-          //sContrImg(i,j,0,k)=img(i,j,0,k)*factor;
-          if(((img(i,j,0,k)-128)*factor)+128<0) sContrImg(i,j,0,k)=0;
-          else if(((img(i,j,0,k)-128)*factor)+128>255) sContrImg(i,j,0,k)=255;
-          else sContrImg(i,j,0,k)=(((img(i,j,0,k)-128)*factor)+128);
-          }
-        }
-      }
-    displaying(sContrImg);
-    return 0;
-}
-
-int darker(CImg<double> img){
-    CImg<double> darkimg(img.width(),img.height(),1,3,0);
-    for (int i=0; i<img.width(); i++){
-      for (int j=0;j<img.height();j++){
-        for (int k=0;k<3;k++){ 
-          if(img(i,j,0,k)-100<0) darkimg(i,j,0,k)=0;
-          else if(img(i,j,0,k)-100>255) darkimg(i,j,0,k)=255;
-          else darkimg(i,j,0,k)=img(i,j,0,k)-100;
-          }
-        }
-      }
-    displaying(darkimg);
-    return 0;
-}
-
-int brighter(CImg<double> img){
-    CImg<double> brightimg(img.width(),img.height(),1,3,0);
-    for (int i=0; i<img.width(); i++){
-      for (int j=0;j<img.height();j++){
-        for (int k=0;k<3;k++){ 
-          if(img(i,j,0,k)+100<0) brightimg(i,j,0,k)=0;
-          else if(img(i,j,0,k)+100>255) brightimg(i,j,0,k)=255;
-          else brightimg(i,j,0,k)=img(i,j,0,k)+100;
-          }
-        }
-      }
-    displaying(brightimg);
-    return 0;
-}
-
-int negative(CImg<double> img){
-  //contrast correction factor factor=259(C+255)/[255(259-C)]
-    CImg<double> negativeImg(img.width(),img.height(),1,3,0);
-    //int contrast= 125;
-   // float factor=(259*(contrast+255))/(255*(259-contrast));
-    for (int i=0; i<img.width(); i++){
-      for (int j=0;j<img.height();j++){
-        for (int k=0;k<3;k++){ 
-          if(255-(img(i,j,0,k))<0) negativeImg(i,j,0,k)=0;
-          else if(255-(img(i,j,0,k))>255) negativeImg(i,j,0,k)=255;
-          else negativeImg(i,j,0,k)=255-(img(i,j,0,k));
-          }
-        }
-      }
-    displaying(negativeImg);
-    return 0;
-}
-
-int hflip(CImg<double> img){
-    CImg<double> hflipImg(img.width(),img.height(),1,3,0);
-    for (int i=0; i<img.width(); i++){
-      for (int j=0;j<img.height();j++){
-        for (int k=0;k<3;k++){ 
-                  hflipImg(img.width()-1-i,j,0,k)=img(i,j,0,k);
-          }
-        }
-      }
-    displaying(hflipImg);
-    return 0;
-}
-
-int vflip(CImg<double> img){
-    CImg<double> vflipImg(img.width(),img.height(),1,3,0);
-    for (int i=0; i<img.width(); i++){
-      for (int j=0;j<img.height();j++){
-        for (int k=0;k<3;k++){ 
-                  vflipImg(i,img.height()-1-j,0,k)=img(i,j,0,k);
-          }
-        }
-      }
-    displaying(vflipImg);
-    return 0;
-}
-
-int dflip(CImg<double> img){
-    CImg<double> dflipImg(img.width(),img.height(),1,3,0);
-    for (int i=0; i<img.width(); i++){
-      for (int j=0;j<img.height();j++){
-        for (int k=0;k<3;k++){ 
-                  dflipImg(img.width()-1-i,img.height()-1-j,0,k)=img(i,j,0,k);
-          }
-        }
-      }
-    displaying(dflipImg);
-    return 0;
-}
-
-int enlargement(CImg<double> img){
-  int factor=3;
-  CImg<double> enlargeImg((factor*img.width()),(factor*img.height()),1,3,0);
-  for (int i=0; i<img.width(); i++){
-      for (int j=0;j<img.height();j++){
-        for (int k=0;k<3;k++){ 
-                  enlargeImg(factor*i,factor*j,0,k)=img(i,j,0,k);
-                  enlargeImg(factor*i+1,factor*j,0,k)=img(i,j,0,k);
-                  enlargeImg(factor*i,factor*j+1,0,k)=img(i,j,0,k);
-                  enlargeImg(factor*i+1,factor*j+1,0,k)=img(i,j,0,k);
-          }
-        }
-      }
-     /* CImg<double> enlargenImg((enlargeImg.width()),(enlargeImg.height()),1,3,0);
-  for (int i=0; i<enlargeImg.width(); i++){
-      for (int j=0;j<enlargeImg.height();j++){
-          if (enlargeImg(i,j,0,1)==0 && enlargeImg(i,j,0,2)==0 && enlargeImg(i,j,0,0)==0) {
-            for (int k=0;k<3;k++){
-            int mean=((enlargeImg(i-1,j,0,k)+enlargeImg(i+1,j,0,k))/2);
-            if (i-1<0)i=0;
-            else if (i+1>enlargeImg.width()) i=enlargeImg.width();
-            else if (j-1<0) j=0;
-            else if (j+1>enlargeImg.height()) j=enlargeImg.height();
-            enlargenImg(i,j,0,k)=mean;
-          }
-        }
-      }
-  }*/
-  displaying(enlargeImg);
-
-}
-
-int shrinking(CImg<double> img){
-  int factor=2;
-  CImg<double> shrinkedImg((img.width()/factor),(img.height()/factor),1,3,0);
-  for (int i=0; i<shrinkedImg.width(); i++){
-      for (int j=0;j<shrinkedImg.height();j++){
-        for (int k=0;k<3;k++){ 
-                  shrinkedImg(i,j,0,k)=img(i*factor,j*factor,0,k);
-                  //shrinkedImg(factor*i+1,factor*j,0,k)=img(i,j,0,k);
-                  //shrinkedImg(factor*i,factor*j+1,0,k)=img(i,j,0,k);
-                  //shrinkedImg(factor*i+1,factor*j+1,0,k)=img(i,j,0,k);
-          }
-        }
-      }
-  displaying(shrinkedImg);
-}
 
 int stageB(CImg<double> img){
   return 0;
@@ -257,10 +85,14 @@ int task(){
 }
 
 int main(int argc, char* argv[]) {
-    CImg<unsigned char> image("../img/color-24bit/lenac.bmp");
-    image.save("Original.bmp");
-    changeBrightness(image, argv[1]);
-    task();
+    CImg<int> image("../img/color-24bit/lenac.bmp");
+    image.save("original.bmp");
+    brightness(image, argv[1]);
+    //image.save("modified.bmp");
+    CImg<int> img1("../out/original.bmp");
+    CImg<int> img2("../out/modified.bmp");
+    (img1,img2).display();
+    //task();
     return 0;
 }
 

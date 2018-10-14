@@ -1,15 +1,14 @@
-#ifndef BASIC_MANIPULATIONS
-#define BASIC_MANIPULATIONS
+#ifndef BASIC_MODIFICATIONS
+#define BASIC_MODIFICATIONS
 
 #include "../../lib/CImg.templ"
 
 using namespace std;
 using namespace cimg_library;
 
-CImg<int> changeBrightness(CImg<int>, char*);
-CImg<int> changeContrast(CImg<int>, char*);
-CImg<int> changeToNegative(CImg<int>);
+CImg<int> brightness(CImg<int>, char*);
+CImg<int> contrast(CImg<int>, char*);
+CImg<int> negative(CImg<int>);
 
-#endif //BASIC_MANIPULATIONS
-
+#endif //BASIC_MODIFICATIONS
 
