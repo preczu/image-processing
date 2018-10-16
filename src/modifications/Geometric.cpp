@@ -1,12 +1,12 @@
 #include <iostream>
 #include "../../lib/CImg.templ"
-#include "G.h"
+#include "Geometric.h"
 
 using namespace std;
 using namespace cimg_library;
 
 CImg<int> hflip(CImg<int> img){
-    CImg<double> hflipImg(img.width(),img.height(),1,3,0);
+    CImg<int> hflipImg(img.width(),img.height(),1,3,0);
     for (int i=0; i<img.width(); i++){
         for (int j=0;j<img.height();j++){
             for (int k=0;k<3;k++){
@@ -18,7 +18,7 @@ CImg<int> hflip(CImg<int> img){
 }
 
 CImg<int> vflip(CImg<int> img){
-    CImg<double> vflipImg(img.width(),img.height(),1,3,0);
+    CImg<int> vflipImg(img.width(),img.height(),1,3,0);
     for (int i=0; i<img.width(); i++){
         for (int j=0;j<img.height();j++){
             for (int k=0;k<3;k++){

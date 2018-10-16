@@ -1,6 +1,6 @@
 #include <iostream>
 #include "../../lib/CImg.templ"
-#include "B.h"
+#include "Basic.h"
 
 using namespace std;
 using namespace cimg_library;

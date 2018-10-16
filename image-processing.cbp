@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="image-processing"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/home/anna/Documents/IP/image-processing"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/home/anna/Documents/IP/image-processing/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -f &quot;/home/anna/Documents/IP/image-processing/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/home/anna/Documents/IP/image-processing/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/home/anna/Documents/IP/image-processing/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/home/anna/Documents/IP/image-processing"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/home/anna/Documents/IP/image-processing/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -f &quot;/home/anna/Documents/IP/image-processing/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/home/anna/Documents/IP/image-processing/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/home/anna/Documents/IP/image-processing/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/home/anna/Documents/IP/image-processing"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/home/anna/Documents/IP/image-processing/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -f &quot;/home/anna/Documents/IP/image-processing/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/home/anna/Documents/IP/image-processing/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/home/anna/Documents/IP/image-processing/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="image-processing">
+				<Option output="/home/anna/Documents/IP/image-processing/out/image-processing" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/anna/Documents/IP/image-processing/out"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/anna/Documents/IP/image-processing"/>
+					<Add directory="/home/anna/Documents/IP/image-processing/libs"/>
+					<Add directory="/home/anna/Documents/IP/image-processing/src"/>
+					<Add directory="/home/anna/Documents/IP/image-processing/src/modifications"/>
+					<Add directory="/home/anna/Documents/IP/image-processing/lib"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/home/anna/Documents/IP/image-processing/Makefile&quot;  VERBOSE=1 image-processing"/>
+					<CompileFile command="/usr/bin/make -f &quot;/home/anna/Documents/IP/image-processing/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/home/anna/Documents/IP/image-processing/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/home/anna/Documents/IP/image-processing/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="image-processing/fast">
+				<Option output="/home/anna/Documents/IP/image-processing/out/image-processing" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/anna/Documents/IP/image-processing/out"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/anna/Documents/IP/image-processing"/>
+					<Add directory="/home/anna/Documents/IP/image-processing/libs"/>
+					<Add directory="/home/anna/Documents/IP/image-processing/src"/>
+					<Add directory="/home/anna/Documents/IP/image-processing/src/modifications"/>
+					<Add directory="/home/anna/Documents/IP/image-processing/lib"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/home/anna/Documents/IP/image-processing/Makefile&quot;  VERBOSE=1 image-processing/fast"/>
+					<CompileFile command="/usr/bin/make -f &quot;/home/anna/Documents/IP/image-processing/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/home/anna/Documents/IP/image-processing/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/home/anna/Documents/IP/image-processing/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/home/anna/Documents/IP/image-processing/src/main.cpp">
+			<Option target="image-processing"/>
+		</Unit>
+		<Unit filename="/home/anna/Documents/IP/image-processing/src/modifications/Basic.cpp">
+			<Option target="image-processing"/>
+		</Unit>
+		<Unit filename="/home/anna/Documents/IP/image-processing/src/modifications/Basic.h">
+			<Option target="image-processing"/>
+		</Unit>
+		<Unit filename="/home/anna/Documents/IP/image-processing/src/modifications/Geometric.cpp">
+			<Option target="image-processing"/>
+		</Unit>
+		<Unit filename="/home/anna/Documents/IP/image-processing/src/modifications/Geometric.h">
+			<Option target="image-processing"/>
+		</Unit>
+		<Unit filename="/home/anna/Documents/IP/image-processing/src/modifications/N.cpp">
+			<Option target="image-processing"/>
+		</Unit>
+		<Unit filename="/home/anna/Documents/IP/image-processing/src/modifications/N.h">
+			<Option target="image-processing"/>
+		</Unit>
+		<Unit filename="/home/anna/Documents/IP/image-processing/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>
