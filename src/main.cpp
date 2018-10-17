@@ -221,6 +221,40 @@ void input(int argc, char* argv[]) {
         }
         else help();
     }
+
+    else if (string("--adaptive").compare(argv[1]) == 0){
+
+    }
+
+    else if (string("--min").compare(argv[1]) == 0){
+        
+    }
+
+    else if (string("--max").compare(argv[1]) == 0){
+        
+    }
+
+    else if (string("--mse").compare(argv[1]) == 0){
+        
+    }
+
+    else if (string("--pmse").compare(argv[1]) == 0){
+        
+    }
+
+    else if (string("--snr").compare(argv[1]) == 0){
+        
+    }
+
+    else if (string("--psnr").compare(argv[1]) == 0){
+        
+    }
+
+    else if (string("--md").compare(argv[1]) == 0){
+        
+    }
+
+
 }
 
 int main(int argc, char* argv[]) {
@@ -232,52 +266,5 @@ int main(int argc, char* argv[]) {
     else {
         input(argc, argv);    
     } 
-        
-    
-    /*int value;
-    //char image;
-    //CImg<int> image("../img/color-24bit/girlc.bmp");
-    if (string("--brightness").compare(argv[1]) == 0) {
-        value = checkValue(argv[2]);
-        //image= argv[3];
-        CImg<int> img(argv[3]);
-        img.save("original.bmp");
-        //CImg<int> image("../img/color-24bit/girlc.bmp");
-        img = brightness(img, argv[2]);
-        img.save("modified.bmp");
-        displaying();
-
-    } else if (string("--contrast").compare(argv[1])) {
-        value = checkValue(argv[2]);
-        //image= argv[3];
-        //CImg<int> img(image);
-        CImg<int> image("../img/color-24bit/girlc.bmp");
-        if (value < 0) value = value * (-1);
-        contrast(image, argv[2]);
-
-    }
-    else if (string("--hflip").compare(argv[1])){
-        //image= argv[2];
-        //CImg<int> img(image);
-        CImg<int> image("/img/color-24bit/girlc.bmp");
-        hflip(image);
-    }
-    //help();
-    return 0;
-    //brightness();
-    //else help();
-
-    //wrong place of file*/
-
-    /*CImg<int> image("../img/color-24bit/girlc.bmp");
-    image.save("original.bmp");
-
-
-    image = brightness(image, argv[1]);
-    image.save("modified.bmp");
-    CImg<int> img1("../out/original.bmp");
-    CImg<int> img2("../out/modified.bmp");
-    img1.append(img2).display("Image");
-    //task();*/
 }
 
