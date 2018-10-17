@@ -19,8 +19,8 @@ CImg<int> brightness(CImg<int> img, float value) {
     return img;
 }
 
-CImg<int> contrast(CImg<int> img, char* val) {
-    float value = atof(val);
+CImg<int> contrast(CImg<int> img, float value) { 
+    //float value = atof(val);
     if (value < 0) {cout << "Contrast value must be greater than 0 "; exit(0);}
     /*float factor = 128 - 128 * value;
     for (int i = 0; i < img.width(); i++) {

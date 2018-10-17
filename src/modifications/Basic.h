@@ -7,7 +7,7 @@ using namespace std;
 using namespace cimg_library;
 
 CImg<int> brightness(CImg<int>, float);
-CImg<int> contrast(CImg<int>, char*);
+CImg<int> contrast(CImg<int>, float);
 CImg<int> negative(CImg<int>);
 
 #endif //BASIC_MODIFICATIONS
