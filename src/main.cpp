@@ -11,14 +11,14 @@ using namespace cimg_library;
 //N5
 // ./image-processing
 
-void help(){
+void help() {
     cout << " \n"
     "                 image-processing\n"
     " \n"
     "             program to process images\n"
     "          Anna Preczyńska and Piotr Kocik\n"
     " \n"
-    "  usage: image-processing <command> <value> <name_of_image_to_edit>\n"
+    "  usage: image-processing <command> <value> <name_of_image_to_edit> <name_of_edited_image>\n"
     " \n"
     "Commands:\n"
     "   --help          list avaiable commands and the usage of the program\n"
@@ -34,30 +34,69 @@ void help(){
     "   --enlarge       make iage bigger by value from zero to two\n";
 }
 
-void displaying(){
+void displaying() {
         CImg<int> img1("../out/original.bmp");
         CImg<int> img2("../out/modified.bmp");
         img1.append(img2).display("Image");
 }
 
-int option(char function, float value, CImg<int> img1, CImg<int> img2){
-
-}
-int checkValue(char* val) {
+int checkIntValue(char* val) {
     int number = atoi(val);
     return number;
 }
 
+int checkFloatValue(char* val){
+    float number = atof(val);
+    return number;
+}
+
+void input(int argc, char* argv[]) {
+    if (string("--help").compare(argv[1]) == 0) {
+        help();
+    }
+    else if (string("--brightness").compare(argv[1]) == 0) {
+            int value;                                  //it will be used to check if    
+            value = checkFloatValue(argv[2]);           //checking whether argv[2] is any possible value and converting it into float
+            if(argc = 3){
+                CImg<int> img("../img/color-24bit/girlc.bmp");
+                img.save("original.bmp");                   //saving an image in folder "../out"
+                img = brightness(img, value);               //implementing the function
+                img.save("modified.bmp");                   //saving the resultant image in folder "../out"
+            }
+            else{
+                if (argc = 4){
+                    CImg<int> img(argv[3]);                 //defining an image from input                
+                    img.save("original.bmp");               //saving an image in folder "../out"
+                    img = brightness(img, value);           //implementing the function
+                    img.save("modified.bmp");               //saving the resultant image in folder "../out"
+                }
+                else if (argc = 5){
+                    CImg<int> img(argv[3]);                 //defining an image from input                
+                    img.save("original.bmp");               //saving an image in folder "../out"
+                    img = brightness(img, value);           //implementing the function
+                    img.save("modified.bmp");               //saving the resultant image in folder "../out"
+                    img.save(argv[4]);       //!!!          //saving the resultant image with a name given as an input
+                }
+            }            
+            displaying();                                   //displaying pictures
+    }
+
+    
+}
+
 int main(int argc, char* argv[]) {
 
-            // cout << "GIT" << argv[1] << " ? " << string("--help").compare(argv[1]) << endl;
-
-    if (string("--help").compare(argv[1]) == 0) {
+    if (argc < 2 && argc > 5){
         help();
         return 0;
     }
+    else {
+        cout << argv[4];
+        input(argc, argv);    
+    } 
+        
     
-    int value;
+    /*int value;
     //char image;
     //CImg<int> image("../img/color-24bit/girlc.bmp");
     if (string("--brightness").compare(argv[1]) == 0) {
@@ -68,9 +107,7 @@ int main(int argc, char* argv[]) {
         //CImg<int> image("../img/color-24bit/girlc.bmp");
         img = brightness(img, argv[2]);
         img.save("modified.bmp");
-        CImg<int> img1("../out/original.bmp");
-    CImg<int> img2("../out/modified.bmp");
-    img1.append(img2).display("Image");
+        displaying();
 
     } else if (string("--contrast").compare(argv[1])) {
         value = checkValue(argv[2]);
@@ -87,12 +124,12 @@ int main(int argc, char* argv[]) {
         CImg<int> image("/img/color-24bit/girlc.bmp");
         hflip(image);
     }
-    help();
+    //help();
     return 0;
     //brightness();
     //else help();
 
-    //wrong place of file
+    //wrong place of file*/
 
     /*CImg<int> image("../img/color-24bit/girlc.bmp");
     image.save("original.bmp");
@@ -104,10 +141,5 @@ int main(int argc, char* argv[]) {
     CImg<int> img2("../out/modified.bmp");
     img1.append(img2).display("Image");
     //task();*/
-
-
-//./run argv[1]
-    return 0;
-
 }
 
