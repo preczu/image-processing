@@ -4,6 +4,8 @@
 #include "modifications/Basic.h"
 #include "modifications/Geometric.h"
 #include "modifications/N.h"
+#include "modifications/Filters.h"
+
 
 using namespace std;
 using namespace cimg_library;
