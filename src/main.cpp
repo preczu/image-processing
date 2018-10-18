@@ -42,12 +42,29 @@ void displaying() {
 
 int checkIntValue(char* val) {
     int number = atoi(val);
+    if (number == 0){
+        if (val != "0"){
+            cout << "You forgot to give the value! \n" << endl;
+            help();
+            exit(0);
+        }
+        else return number;
+    }
+    else return number;
     return number;
 }
 
 float checkFloatValue(char* val){
     float number = atof(val);
-    return number;
+    if (number == 0){
+        if (val != "0"){
+            cout << "You forgot to give the value! \n" << endl;
+            help();
+            exit(0);
+        }
+        else return number;
+    }
+    else return number;
 }
 
 void input(int argc, char* argv[]) {
