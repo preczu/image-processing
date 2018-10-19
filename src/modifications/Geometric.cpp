@@ -42,8 +42,8 @@ CImg<int> dflip(CImg<int> img){
 }
 
 
-CImg<int> shrink(CImg<int> img, char* val){
-    float factor = atof(val);
+CImg<int> shrink(CImg<int> img, float factor){
+    //float factor = atof(val);
     CImg<int> shrinkedImg((img.width()/factor),(img.height()/factor),1,3,0);
     for (int i=0; i<shrinkedImg.width(); i++){
         for (int j=0;j<shrinkedImg.height();j++){
@@ -55,8 +55,8 @@ CImg<int> shrink(CImg<int> img, char* val){
     return shrinkedImg;
 }
 
-CImg<int> enlarge(CImg<int> img, char* val){
-    float factor = atof(val);
+CImg<int> enlarge(CImg<int> img, float factor){
+    //float factor = atof(val);
     CImg<int> enlargeImg((factor*img.width()),(factor*img.height()),1,3,0);
     for (int i=0; i<img.width(); i++){
         for (int j=0;j<img.height();j++){
