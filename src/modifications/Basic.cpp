@@ -6,7 +6,6 @@ using namespace std;
 using namespace cimg_library;
 
 CImg<int> brightness(CImg<int> img, float value) {
-    //int value = atoi(val); 
     for (int i=0; i<img.width(); i++){
         for (int j=0;j<img.height();j++){
             for (int k=0;k<3;k++){
@@ -20,7 +19,6 @@ CImg<int> brightness(CImg<int> img, float value) {
 }
 
 CImg<int> contrast(CImg<int> img, float value) { 
-    //float value = atof(val);
     if (value < 0) {cout << "Contrast value must be greater than 0 "; exit(0);}
     /*float factor = 128 - 128 * value;
     for (int i = 0; i < img.width(); i++) {
@@ -36,9 +34,6 @@ CImg<int> contrast(CImg<int> img, float value) {
     for (int i=0; i<img.width(); i++){
         for (int j=0;j<img.height();j++){
             for (int k=0;k<3;k++){
-                //if(img(i,j,0,k)*factor<0) sContrImg(i,j,0,k)=0;
-                //else if(img(i,j,0,k)*factor>255) sContrImg(i,j,0,k)=255;
-                //sContrImg(i,j,0,k)=img(i,j,0,k)*factor;
                 if(((img(i,j,0,k)-128)*factor)+128<0) img(i,j,0,k)=0;
                 else if(((img(i,j,0,k)-128)*factor)+128>255) img(i,j,0,k)=255;
                 else img(i,j,0,k)=(((img(i,j,0,k)-128)*factor)+128);

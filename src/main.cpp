@@ -11,7 +11,6 @@ using namespace std;
 using namespace cimg_library;
 
 //N5
-// ./image-processing
 
 void help() {
     cout << " \n"
@@ -33,7 +32,7 @@ void help() {
     "   --vflip         vertical image, without any value\n"
     "   --dflip         diagonal image, without any value\n"
     "   --shrink        make image smaller by value bigger than zero\n"
-    "   --enlarge       make iage bigger by value from zero to two\n";
+    "   --enlarge       make image bigger by value from zero to three\n";
 }
 
 void displaying() {
@@ -70,14 +69,19 @@ float checkFloatValue(char* val){
 }
 
 void input(int argc, char* argv[]) {
-    int numberOfArgc = argc;
+    int numberOfArgc = argc;                                //integer used to some geometric functions
 
     if (string("--help").compare(argv[1]) == 0) {
         help();
     }
     else if (string("--brightness").compare(argv[1]) == 0) {
-            float value;                                  //it will be used to check if    
-            value = checkFloatValue(argv[2]);           //checking whether argv[2] is any possible value and converting it into float
+            if( numberOfArgc == 2){
+                help();
+                exit(0);
+            }
+            
+            float value;                                    //it will be used to check if    
+            value = checkFloatValue(argv[2]);               //checking whether argv[2] is any possible value and converting it into float
             if(argc == 3){
                 CImg<int> img("../img/color-24bit/lenac.bmp");
                 img.save("original.bmp");                   //saving an image in folder "../out"
@@ -103,27 +107,32 @@ void input(int argc, char* argv[]) {
     }
 
     else if (string("--contrast").compare(argv[1]) == 0) {
-            float value;                                  //it will be used to check if    
-            value = checkFloatValue(argv[2]);           //checking whether argv[2] is any possible value and converting it into float
+            if( numberOfArgc == 2){
+                help();
+                exit(0);
+            }
+            
+            float value;                                    //it will be used to check if    
+            value = checkFloatValue(argv[2]);               //checking whether argv[2] is any possible value and converting it into float
             if(argc == 3){
                 CImg<int> img("../img/color-24bit/lenac.bmp");
                 img.save("original.bmp");                   //saving an image in folder "../out"
-                img = contrast(img, value);               //implementing the function
+                img = contrast(img, value);                 //implementing the function
                 img.save("modified.bmp");                   //saving the resultant image in folder "../out"
             }
             else{
                 if (argc == 4){
                     CImg<int> img(argv[3]);                 //defining an image from input                
                     img.save("original.bmp");               //saving an image in folder "../out"
-                    img = contrast(img, value);           //implementing the function
+                    img = contrast(img, value);             //implementing the function
                     img.save("modified.bmp");               //saving the resultant image in folder "../out"
                 }
                 else if (argc == 5){
                     CImg<int> img(argv[3]);                 //defining an image from input                
                     img.save("original.bmp");               //saving an image in folder "../out"
-                    img = contrast(img, value);           //implementing the function
+                    img = contrast(img, value);             //implementing the function
                     img.save("modified.bmp");               //saving the resultant image in folder "../out"
-                    img.save(argv[4]);                    //saving the resultant image with a name given as an input
+                    img.save(argv[4]);                      //saving the resultant image with a name given as an input
                 }
             }            
             displaying();                                   //displaying pictures
@@ -134,22 +143,22 @@ void input(int argc, char* argv[]) {
             if(argc == 2){
                 CImg<int> img("../img/color-24bit/lenac.bmp");
                 img.save("original.bmp");                   //saving an image in folder "../out"
-                img = negative(img);               //implementing the function
+                img = negative(img);                        //implementing the function
                 img.save("modified.bmp");                   //saving the resultant image in folder "../out"
             }
             else{
                 if (argc == 3){
                     CImg<int> img(argv[2]);                 //defining an image from input                
                     img.save("original.bmp");               //saving an image in folder "../out"
-                    img = negative(img);           //implementing the function
+                    img = negative(img);                    //implementing the function
                     img.save("modified.bmp");               //saving the resultant image in folder "../out"
                 }
                 else if (argc == 4){
                     CImg<int> img(argv[2]);                 //defining an image from input                
                     img.save("original.bmp");               //saving an image in folder "../out"
-                    img = negative(img);           //implementing the function
+                    img = negative(img);                    //implementing the function
                     img.save("modified.bmp");               //saving the resultant image in folder "../out"
-                    img.save(argv[3]);                    //saving the resultant image with a name given as an input
+                    img.save(argv[3]);                      //saving the resultant image with a name given as an input
                 }
             }            
             displaying();                                   //displaying pictures
@@ -162,22 +171,22 @@ void input(int argc, char* argv[]) {
             if(argc == 2){
                 CImg<int> img("../img/color-24bit/lenac.bmp");
                 img.save("original.bmp");                   //saving an image in folder "../out"
-                img = hflip(img);               //implementing the function
+                img = hflip(img);                           //implementing the function
                 img.save("modified.bmp");                   //saving the resultant image in folder "../out"
             }
             else{
                 if (argc == 3){
                     CImg<int> img(argv[2]);                 //defining an image from input                
                     img.save("original.bmp");               //saving an image in folder "../out"
-                    img = hflip(img);           //implementing the function
+                    img = hflip(img);                       //implementing the function
                     img.save("modified.bmp");               //saving the resultant image in folder "../out"
                 }
                 else if (argc == 4){
                     CImg<int> img(argv[2]);                 //defining an image from input                
                     img.save("original.bmp");               //saving an image in folder "../out"
-                    img = hflip(img);           //implementing the function
+                    img = hflip(img);                       //implementing the function
                     img.save("modified.bmp");               //saving the resultant image in folder "../out"
-                    img.save(argv[3]);                    //saving the resultant image with a name given as an input
+                    img.save(argv[3]);                      //saving the resultant image with a name given as an input
                 }
             }           
             displaying();                                   //displaying pictures
@@ -190,22 +199,22 @@ void input(int argc, char* argv[]) {
             if(argc == 2){
                 CImg<int> img("../img/color-24bit/lenac.bmp");
                 img.save("original.bmp");                   //saving an image in folder "../out"
-                img = vflip(img);               //implementing the function
+                img = vflip(img);                           //implementing the function
                 img.save("modified.bmp");                   //saving the resultant image in folder "../out"
             }
             else{
                 if (argc == 3){
                     CImg<int> img(argv[2]);                 //defining an image from input                
                     img.save("original.bmp");               //saving an image in folder "../out"
-                    img = vflip(img);           //implementing the function
+                    img = vflip(img);                       //implementing the function
                     img.save("modified.bmp");               //saving the resultant image in folder "../out"
                 }
                 else if (argc == 4){
                     CImg<int> img(argv[2]);                 //defining an image from input                
                     img.save("original.bmp");               //saving an image in folder "../out"
-                    img = vflip(img);           //implementing the function
+                    img = vflip(img);                       //implementing the function
                     img.save("modified.bmp");               //saving the resultant image in folder "../out"
-                    img.save(argv[3]);                    //saving the resultant image with a name given as an input
+                    img.save(argv[3]);                      //saving the resultant image with a name given as an input
                 }
             }           
             displaying();                                   //displaying pictures
@@ -218,22 +227,22 @@ void input(int argc, char* argv[]) {
             if(argc == 2){
                 CImg<int> img("../img/color-24bit/lenac.bmp");
                 img.save("original.bmp");                   //saving an image in folder "../out"
-                img = dflip(img);               //implementing the function
+                img = dflip(img);                           //implementing the function
                 img.save("modified.bmp");                   //saving the resultant image in folder "../out"
             }
             else{
                 if (argc == 3){
                     CImg<int> img(argv[2]);                 //defining an image from input                
                     img.save("original.bmp");               //saving an image in folder "../out"
-                    img = dflip(img);           //implementing the function
+                    img = dflip(img);                       //implementing the function
                     img.save("modified.bmp");               //saving the resultant image in folder "../out"
                 }
                 else if (argc == 4){
                     CImg<int> img(argv[2]);                 //defining an image from input                
                     img.save("original.bmp");               //saving an image in folder "../out"
-                    img = dflip(img);           //implementing the function
+                    img = dflip(img);                       //implementing the function
                     img.save("modified.bmp");               //saving the resultant image in folder "../out"
-                    img.save(argv[3]);                    //saving the resultant image with a name given as an input
+                    img.save(argv[3]);                      //saving the resultant image with a name given as an input
                 }
             }           
             displaying();                                   //displaying pictures
@@ -242,91 +251,117 @@ void input(int argc, char* argv[]) {
     }
 
     else if (string("--shrink").compare(argv[1]) == 0) {
-            float value;                                  //it will be used to check if    
-            value = checkFloatValue(argv[2]);           //checking whether argv[2] is any possible value and converting it into float
-            if(argc == 3){
-                CImg<int> img("../img/color-24bit/lenac.bmp");
-                img.save("original.bmp");                   //saving an image in folder "../out"
-                img = shrink(img, value);               //implementing the function
-                img.save("modified.bmp");                   //saving the resultant image in folder "../out"
+            if( numberOfArgc == 2){
+                help();
+                exit(0);
+            }
+            
+            float value;                                    //it will be used to check if    
+            value = checkFloatValue(argv[2]);               //checking whether argv[2] is any possible value and converting it into float
+            if (value < 1) {
+                help();
+                exit(0);
             }
             else{
-                if (argc == 4){
-                    CImg<int> img(argv[3]);                 //defining an image from input                
-                    img.save("original.bmp");               //saving an image in folder "../out"
-                    img = shrink(img, value);           //implementing the function
-                    img.save("modified.bmp");               //saving the resultant image in folder "../out"
+                if(argc == 3){
+                    CImg<int> img("../img/color-24bit/lenac.bmp");
+                    img.save("original.bmp");                   //saving an image in folder "../out"
+                    img = shrink(img, value);                   //implementing the function
+                    img.save("modified.bmp");                   //saving the resultant image in folder "../out"
                 }
-                else if (argc == 5){
-                    CImg<int> img(argv[3]);                 //defining an image from input                
-                    img.save("original.bmp");               //saving an image in folder "../out"
-                    img = shrink(img, value);           //implementing the function
-                    img.save("modified.bmp");               //saving the resultant image in folder "../out"
-                    img.save(argv[4]);                    //saving the resultant image with a name given as an input
-                }
-            }            
-            displaying();                                   //displaying pictures
+                else{
+                    if (argc == 4){
+                        CImg<int> img(argv[3]);                 //defining an image from input                
+                        img.save("original.bmp");               //saving an image in folder "../out"
+                        img = shrink(img, value);               //implementing the function
+                        img.save("modified.bmp");               //saving the resultant image in folder "../out"
+                    }
+                    else if (argc == 5){
+                        CImg<int> img(argv[3]);                 //defining an image from input                
+                        img.save("original.bmp");               //saving an image in folder "../out"
+                        img = shrink(img, value);               //implementing the function
+                        img.save("modified.bmp");               //saving the resultant image in folder "../out"
+                        img.save(argv[4]);                      //saving the resultant image with a name given as an input
+                    }
+                }            
+                displaying();                                   //displaying pictures
+            }
     }
 
     else if (string("--enlarge").compare(argv[1]) == 0) {
-            float value;                                  //it will be used to check if    
-            value = checkFloatValue(argv[2]);           //checking whether argv[2] is any possible value and converting it into float
-            if(argc == 3){
-                CImg<int> img("../img/color-24bit/lenac.bmp");
-                img.save("original.bmp");                   //saving an image in folder "../out"
-                img = enlarge(img, value);               //implementing the function
-                img.save("modified.bmp");                   //saving the resultant image in folder "../out"
+            if( numberOfArgc == 2){
+                help();
+                exit(0);
             }
-            else{
-                if (argc == 4){
-                    CImg<int> img(argv[3]);                 //defining an image from input                
-                    img.save("original.bmp");               //saving an image in folder "../out"
-                    img = enlarge(img, value);           //implementing the function
-                    img.save("modified.bmp");               //saving the resultant image in folder "../out"
+            
+            float value;                                    //it will be used to check if    
+            value = checkFloatValue(argv[2]);               //checking whether argv[2] is any possible value and converting it into float
+            if (value < 1 || value > 3) {
+                help();
+                exit(0);
+            }
+            else {
+                if(argc == 3){
+                    CImg<int> img("../img/color-24bit/lenac.bmp");
+                    img.save("original.bmp");                   //saving an image in folder "../out"
+                    img = enlarge(img, value);                  //implementing the function
+                    img.save("modified.bmp");                   //saving the resultant image in folder "../out"
                 }
-                else if (argc == 5){
-                    CImg<int> img(argv[3]);                 //defining an image from input                
-                    img.save("original.bmp");               //saving an image in folder "../out"
-                    img = enlarge(img, value);           //implementing the function
-                    img.save("modified.bmp");               //saving the resultant image in folder "../out"
-                    img.save(argv[4]);                    //saving the resultant image with a name given as an input
-                }
-            }            
-            displaying();                                   //displaying pictures
+                else{
+                    if (argc == 4){
+                        CImg<int> img(argv[3]);                 //defining an image from input                
+                        img.save("original.bmp");               //saving an image in folder "../out"
+                        img = enlarge(img, value);              //implementing the function
+                        img.save("modified.bmp");               //saving the resultant image in folder "../out"
+                    }
+                    else if (argc == 5){
+                        CImg<int> img(argv[3]);                 //defining an image from input                
+                        img.save("original.bmp");               //saving an image in folder "../out"
+                        img = enlarge(img, value);              //implementing the function
+                        img.save("modified.bmp");               //saving the resultant image in folder "../out"
+                        img.save(argv[4]);                      //saving the resultant image with a name given as an input
+                    }
+                }            
+                displaying();                                   //displaying pictures
+            }
     }
 
     else if (string("--adaptive").compare(argv[1]) == 0){
-
+            ///////
     }
 
     else if (string("--min").compare(argv[1]) == 0){
-        
+                    ///////
     }
 
     else if (string("--max").compare(argv[1]) == 0){
-        
+                    ///////
     }
 
     else if (string("--mse").compare(argv[1]) == 0){
-        
+                    ///////
     }
 
     else if (string("--pmse").compare(argv[1]) == 0){
-        
+                    ///////
     }
 
     else if (string("--snr").compare(argv[1]) == 0){
-        
+                    ///////
     }
 
     else if (string("--psnr").compare(argv[1]) == 0){
-        
+                    ///////
     }
 
     else if (string("--md").compare(argv[1]) == 0){
-        
+                    ///////
     }
 
+    else {
+        help();
+        exit(0);
+    }
 
 }
 
@@ -339,5 +374,6 @@ int main(int argc, char* argv[]) {
     else {
         input(argc, argv);    
     } 
+    return 0;
 }
 

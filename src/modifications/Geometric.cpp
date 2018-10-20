@@ -43,7 +43,6 @@ CImg<int> dflip(CImg<int> img){
 
 
 CImg<int> shrink(CImg<int> img, float factor){
-    //float factor = atof(val);
     CImg<int> shrinkedImg((img.width()/factor),(img.height()/factor),1,3,0);
     for (int i=0; i<shrinkedImg.width(); i++){
         for (int j=0;j<shrinkedImg.height();j++){
@@ -56,33 +55,51 @@ CImg<int> shrink(CImg<int> img, float factor){
 }
 
 CImg<int> enlarge(CImg<int> img, float factor){
-    //float factor = atof(val);
+
     CImg<int> enlargeImg((factor*img.width()),(factor*img.height()),1,3,0);
-    for (int i=0; i<img.width(); i++){
-        for (int j=0;j<img.height();j++){
-            for (int k=0;k<3;k++){
-                enlargeImg(factor*i,factor*j,0,k)=img(i,j,0,k);
-                enlargeImg(factor*i+1,factor*j,0,k)=img(i,j,0,k);
-                enlargeImg(factor*i,factor*j+1,0,k)=img(i,j,0,k);
-                enlargeImg(factor*i+1,factor*j+1,0,k)=img(i,j,0,k);
+
+        for (int x = 0; x < img.width(); x++) {
+            for (int y = 0; y < img.height(); y++) {
+                for (int k = 0; k < 3; k++) {
+                    enlargeImg(factor*x, factor*y,0,k) = img(x,y,0,k);
+                    enlargeImg(factor*x + 1, factor*y,0,k) = img(x,y,0,k);
+                    enlargeImg(factor*x, factor*y + 1,0,k) = img(x,y,0,k);
+                    enlargeImg(factor*x + 1, factor*y +1,0,k) = img(x,y,0,k);
+
+
+                }
             }
         }
-    }
-
-/* for (int i=0; i<enlargeImg.width(); i++) {
-     for (int j = 0; j < enlargeImg.height(); j++) {
-         if (enlargeImg(i, j, 0, 1) == 0 && enlargeImg(i, j, 0, 2) == 0 && enlargeImg(i, j, 0, 0) == 0) {
-             for (int k = 0; k < 3; k++) {
-                 int mean = ((enlargeImg(i - 1, j, 0, k) + enlargeImg(i + 1, j, 0, k)) / 2);
-                 if (i - 1 < 0)i = 0;
-                 else if (i + 1 > enlargeImg.width()) i = enlargeImg.width();
-                 else if (j - 1 < 0) j = 0;
-                 else if (j + 1 > enlargeImg.height()) j = enlargeImg.height();
-                 enlargeImg(i, j, 0, k) = mean;
-             }
-         }
-     }
- }*/
+ 
+        //filling empty pixels in rows
+        for (int x = 1; x < enlargeImg.width() - 1; x++) {
+            for (int y = 0; y < enlargeImg.height(); y++) {
+                if(enlargeImg( x, y, 0, 0) == 0 && enlargeImg( x, y, 0, 1) == 0 && enlargeImg( x, y, 0, 2) == 0){
+                    for (int c = 0; c < 3; c++){
+                        if(enlargeImg( x+1, y, 0, c) != 0 && enlargeImg( x-1, y, 0, c) != 0){
+                            int sum = enlargeImg( x+1, y, 0, c) + enlargeImg( x-1, y, 0, c);
+                            int counter = 2;
+                            enlargeImg( x, y, 0, c) = sum / counter;
+                        }
+                    }
+                }
+            }
+        }
+    
+        //filling empty pixels in columns
+        for (int x = 0; x < enlargeImg.width(); x++) {
+            for (int y = 1; y < enlargeImg.height() - 1; y++) {
+                if(enlargeImg( x, y, 0, 0) == 0 && enlargeImg( x, y, 0, 1) == 0 && enlargeImg( x, y, 0, 2) == 0){
+                    for (int c = 0; c < 3; c++){
+                        if(enlargeImg( x, y+1, 0, c) != 0 && enlargeImg( x, y-1, 0, c) != 0){
+                            int sum = enlargeImg( x, y+1, 0, c) + enlargeImg( x, y-1, 0, c);
+                            int counter = 2;
+                            enlargeImg( x, y, 0, c) = sum / counter;
+                        }
+                    }
+                }
+            }
+        }
      return enlargeImg;
 
 }
