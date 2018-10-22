@@ -398,7 +398,7 @@ void input(int argc, char* argv[]) {
                 img1.save("original.bmp.");               
                 CImg<int> img2(argv[3]);                      
                 img2.save("modified.bmp");
-                cout << mse(img1,img2) << endl;  
+                cout << "Mean square error: " << mse(img1,img2) << endl;  
             }           
             displaying();                              
         }
@@ -415,7 +415,7 @@ void input(int argc, char* argv[]) {
                 img1.save("original.bmp.");               
                 CImg<int> img2(argv[3]);                               
                 img2.save("modified.bmp");
-                cout << pmse(img1,img2) << endl;  
+                cout << "Peak mean square error: " << pmse(img1,img2) << endl;  
             }           
             displaying();                                
         }
@@ -432,7 +432,7 @@ void input(int argc, char* argv[]) {
                 img1.save("original.bmp.");               
                 CImg<int> img2(argv[3]);                               
                 img2.save("modified.bmp");
-                cout << snr(img1,img2) << endl;  
+                cout << "Signal to noise ratio: " << snr(img1,img2) << endl;  
             }           
             displaying();                                
         }
@@ -449,7 +449,7 @@ void input(int argc, char* argv[]) {
                 img1.save("original.bmp.");               
                 CImg<int> img2(argv[3]);                               
                 img2.save("modified.bmp");
-                cout << psnr(img1,img2) << endl;  
+                cout << "Peak signal to noise ratio: " << psnr(img1,img2) << endl;  
             }           
             displaying();                                
         }
@@ -466,7 +466,7 @@ void input(int argc, char* argv[]) {
                 img1.save("original.bmp.");               
                 CImg<int> img2(argv[3]);                               
                 img2.save("modified.bmp");
-                cout << md(img1,img2) << endl;  
+                cout << "Maximum difference: " << md(img1,img2) << endl;  
             }           
             displaying();                                
         }
