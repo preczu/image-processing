@@ -30,13 +30,15 @@ void help() {
     "   --dflip         diagonal image, without any value\n"
     "   --shrink        make image smaller by value bigger than zero\n"
     "   --enlarge       make image bigger by value from zero to three\n \n"
+    "   usage: image-processing <command> <image_1> <image_2>\n"
     "   --mse           apply min filter\n"
     "   --pmse          apply max filter\n"
     "   --snr           apply adaptive median filter filter\n"
     "   --psnr          calculate mean square error\n"
     "   --md            calculate peak mean square error\n \n"
-    "   --adaptive      calculate signal to noise ratio\n"
-    "     usage:image-processing <command> <maskSize> <smax> <name_of_edited_image>\n"
+    "     usage: image-processing <command> <maskSize> <smax> <name_of_edited_image>\n"
+    "   --adaptive      calculate signal to noise ratio\n \n"
+    "     usage: image-processing <command> <maskSize> <name_of_edited_image> <name_of_edited_image>\n"   
     "   --min           calculate peak signal to noise ratio\n"
     "   --max           calculate maximum difference\n";
 }
