@@ -9,8 +9,6 @@
 using namespace std;
 using namespace cimg_library;
 
-//N5
-
 void help() {
     cout << " \n"
     "                 image-processing\n"
