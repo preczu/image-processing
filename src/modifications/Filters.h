@@ -6,9 +6,10 @@
 #include <cmath>
 #include <vector>
 #include "../../lib/CImg.templ"
+
 using namespace cimg_library;
 using namespace std;
-typedef CImg<unsigned char> CImage;
+
 struct color
 {
 	int r, g, b;
@@ -24,17 +25,18 @@ struct color
 		b = (value >> 16) & 255;
 	}
 };
-inline unsigned long long getColor(int x, int y, CImage& image);
-long long mse(CImage& image1, CImage& image2);
-long long pmse(CImage& image1, CImage& image2);
-long long snr(CImage& image1, CImage& image2);
-long long psnr(CImage& image1, CImage& image2);
-long long md(CImage& image1, CImage& image2);
-long long getMinColor(int x, int y, int maskSize, CImage& image1);
-long long getMaxColor(int x, int y, int maskSize, CImage& image1);
-long long getMedianColor(int x, int y, int maskSize, CImage& image1);
-CImage minFilter(CImage& image1, int maskSize);
-CImage maxFilter(CImage& image1, int maskSize);
-long long singleMedian(CImage& image1, int maskSize, int Smax, int x, int y);
-CImage medianFilter(CImage& image1, int maskSize, int Smax);
+
+int getColor(int x, int y, CImg<int>&);
+float mse(CImg<int> &image1, CImg<int> &image2);
+float pmse(CImg<int> &image1, CImg<int> &image2);
+float snr(CImg<int> &image1, CImg<int> &image2);
+float psnr(CImg<int> &image1, CImg<int> &image2);
+float md(CImg<int> &image1, CImg<int> &image2);
+int getMinColor(int x, int y, int maskSize, CImg<int> &image1);
+int getMaxColor(int x, int y, int maskSize, CImg<int> &image1);
+int getMedianColor(int x, int y, int maskSize, CImg<int> &image1);
+CImg<int> minFilter(CImg<int> &image1, int maskSize);
+CImg<int> maxFilter(CImg<int> &image1, int maskSize);
+int singleMedian(CImg<int> &image1, int maskSize, int Smax, int x, int y);
+CImg<int> medianFilter(CImg<int> &image1, int maskSize, int Smax);
 

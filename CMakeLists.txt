@@ -43,7 +43,7 @@ include_directories(lib)
 add_executable(image-processing
         src/main.cpp
         src/modifications/Basic.h
-        src/modifications/Basic.cpp src/modifications/Geometric.h src/modifications/Geometric.cpp src/modifications/N.cpp src/modifications/N.h src/modifications/Filters.cpp src/modifications/Filters.h)
+        src/modifications/Basic.cpp src/modifications/Geometric.h src/modifications/Geometric.cpp src/modifications/Filters.cpp src/modifications/Filters.h)
 target_link_libraries(image-processing ${SYSTEM_LIBS})
 
 

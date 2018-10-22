@@ -87,6 +87,12 @@
 		<Unit filename="/home/anna/Documents/IP/image-processing/src/modifications/Basic.h">
 			<Option target="image-processing"/>
 		</Unit>
+		<Unit filename="/home/anna/Documents/IP/image-processing/src/modifications/Filters.cpp">
+			<Option target="image-processing"/>
+		</Unit>
+		<Unit filename="/home/anna/Documents/IP/image-processing/src/modifications/Filters.h">
+			<Option target="image-processing"/>
+		</Unit>
 		<Unit filename="/home/anna/Documents/IP/image-processing/src/modifications/Geometric.cpp">
 			<Option target="image-processing"/>
 		</Unit>

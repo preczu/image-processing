@@ -5,78 +5,79 @@
 using namespace cimg_library;
 using namespace std;
 
-inline unsigned long long getColor(int x, int y, CImage& image)
+int getColor(int x, int y, CImg<int> &image)
 {
 	return image(x, y, 0, 0) + (image(x, y, 0, 1) << 8) + (image(x, y, 0, 2) << 16);
 }
 
-long long mse(CImage& image1, CImage& image2)
+float mse(CImg<int> &image1, CImg<int> &image2)
 {
 	if (image1.width() != image2.width() || image1.height() != image2.height()) {
 		throw string("different image dimensions");
 	}
-	long long result = 0;
+	float result = 0;
 
 	for (int i = 0; i < image1.width(); i++)
 	{
 		for (int j = 0; j < image1.height(); j++)
 		{
-			auto c1 = getColor(i, j, image1), c2 = getColor(i, j, image2);
-			auto c = c1 - c2;
-			auto x = c * c;
+			int c1 = getColor(i, j, image1);
+			int c2 = getColor(i, j, image2);
+			int c = c1 - c2;
+			int x = c * c;
 			result = result + c * c;
 		}
 	}
 	return result / (image1.width()*image1.height());
 }
-long long pmse(CImage& image1, CImage& image2)
+float pmse(CImg<int> &image1, CImg<int> &image2)
 {
 	if (image1.width() != image2.width() || image1.height() != image2.height()) {
 		throw string("different image dimensions");
 	}
-	long long result = 0;
-	long long maxVal = 0;
+	float result = 0;
+	float maxVal = 0;
 	for (int i = 0; i < image1.width(); i++)
 	{
 		for (int j = 0; j < image1.height(); j++)
 		{
-			auto c = getColor(i, j, image1);
+			int c = getColor(i, j, image1);
 			if (c > maxVal) {
 				maxVal = c;
 			}
 		}
 	}
-	auto t = maxVal * maxVal;
-	auto x = mse(image1, image2);
+	float t = maxVal * maxVal;
+	float x = mse(image1, image2);
 	return mse(image1, image2) / (maxVal*maxVal);
 }
-long long snr(CImage& image1, CImage& image2)
+float snr(CImg<int> &image1, CImg<int> &image2)
 {
 	if (image1.width() != image2.width() || image1.height() != image2.height()) {
 		throw string("different image dimensions");
 	}
-	long long result = 0;
-	unsigned long long s1 = 0, s2 = 0;
+	float result = 0;
+	float s1 = 0, s2 = 0;
 	for (int i = 0; i < image1.width(); i++)
 	{
 		for (int j = 0; j < image1.height(); j++)
 		{
-			auto c = getColor(i, j, image1);
-			auto c2 = getColor(i, j, image2);
+			int c = getColor(i, j, image1);
+			int c2 = getColor(i, j, image2);
 			s1 = s1 + c * c;//tu sie przekr�ca� licznik typu danych
 			s2 = s2 + (c - c2)*(c - c2);
 		}
 	}
 	return 10 * log10(s1 / s2); 
 }
-long long psnr(CImage& image1, CImage& image2)
+float psnr(CImg<int> &image1, CImg<int> &image2)
 {
 	if (image1.width() != image2.width() || image1.height() != image2.height()) {
 		throw string("different image dimensions");
 	}
-	long long result = 0;
-	long long maxVal = 0;
-	unsigned long long sum = 0, sum2 = 0;
+	float result = 0;
+	float maxVal = 0;
+	float sum = 0, sum2 = 0;
 	//wiki
 	for (int i = 0; i < image1.width(); i++)
 	{
@@ -84,12 +85,12 @@ long long psnr(CImage& image1, CImage& image2)
 		for (int j = 0; j < image1.height(); j++)
 		{
 
-			auto c = getColor(i, j, image1);
+			float c = getColor(i, j, image1);
 			if (c > maxVal) {
 				maxVal = c;
 			}
 		}
-		auto x = mse(image1, image2);
+		float x = mse(image1, image2);
 		return 10 * log10(maxVal*maxVal / mse(image1, image2));
 	}
 	/////instrukcja
@@ -108,19 +109,19 @@ long long psnr(CImage& image1, CImage& image2)
 		//return 10 * log10(sum/sum2);
 
 }
-long long md(CImage& image1, CImage& image2)
+float md(CImg<int> &image1, CImg<int> &image2)
 {
 	if (image1.width() != image2.width() || image1.height() != image2.height()) {
 		throw string("different image dimensions");
 	}
-	long long maxVal = 0;
+	float maxVal = 0;
 	for (int i = 0; i < image1.width(); i++)
 	{
 		for (int j = 0; j < image1.height(); j++)
 		{
-			long long c = getColor(i, j, image1);
-			long long c2 = getColor(i, j, image2);
-			long long diff = std::abs(c - c2);
+			float c = getColor(i, j, image1);
+			float c2 = getColor(i, j, image2);
+			float diff = std::abs(c - c2);
 			if (diff > maxVal) {
 				maxVal = diff;
 			}
@@ -128,7 +129,7 @@ long long md(CImage& image1, CImage& image2)
 	}
 	return maxVal;
 }
-long long getMinColor(int x, int y, int maskSize, CImage& image1)
+int getMinColor(int x, int y, int maskSize, CImg<int> &image1)
 {
 	int result = 0;
 	for (int i = x - maskSize / 2; i <= x + maskSize / 2; i++)
@@ -150,7 +151,7 @@ long long getMinColor(int x, int y, int maskSize, CImage& image1)
 	}
 	return result;
 }
-long long getMaxColor(int x, int y, int maskSize, CImage& image1)
+int getMaxColor(int x, int y, int maskSize, CImg<int> &image1)
 {
 	int result = 0;
 	for (int i = x - maskSize / 2; i <= x + maskSize / 2; i++)
@@ -172,10 +173,10 @@ long long getMaxColor(int x, int y, int maskSize, CImage& image1)
 	}
 	return result;
 }
-long long getMedianColor(int x, int y, int maskSize, CImage& image1)
+int getMedianColor(int x, int y, int maskSize, CImg<int> &image1)
 {
 	int result = 0;
-	vector<long long> numbers;
+	vector<float> numbers;
 	for (int i = x - maskSize / 2; i <= x + maskSize / 2; i++)
 	{
 		for (int j = y - maskSize / 2; j <= y + maskSize / 2; j++)
@@ -194,9 +195,9 @@ long long getMedianColor(int x, int y, int maskSize, CImage& image1)
 	}
 	return (numbers[numbers.size() / 2] + numbers[numbers.size() / 2 + 1]);
 }
-CImage minFilter(CImage& image1, int maskSize)
+CImg<int> minFilter(CImg<int> &image1, int maskSize)
 {
-	CImage result = image1;
+	CImg<int> result = image1;
 	for (int i = 0; i < image1.width(); i++)
 	{
 		for (int j =0; j < image1.height(); j++)
@@ -212,9 +213,9 @@ CImage minFilter(CImage& image1, int maskSize)
 	}
 	return result;
 }
-CImage maxFilter(CImage& image1, int maskSize)
+CImg<int> maxFilter(CImg<int> &image1, int maskSize)
 {
-	CImage result = image1;
+	CImg<int> result = image1;
 	for (int i = maskSize / 2; i < image1.width() - maskSize / 2; i++)
 	{
 		for (int j = maskSize / 2; j < image1.height() - maskSize / 2; j++)
@@ -230,7 +231,7 @@ CImage maxFilter(CImage& image1, int maskSize)
 	}
 	return result;
 }
-long long singleMedian(CImage& image1, int maskSize, int Smax, int x, int y)
+int singleMedian(CImg<int> &image1, int maskSize, int Smax, int x, int y)
 {
 	auto median = getMedianColor(x, y, maskSize, image1);
 	auto minColor = getMinColor(x, y, maskSize, image1);
@@ -255,9 +256,9 @@ long long singleMedian(CImage& image1, int maskSize, int Smax, int x, int y)
 	}
 	return color;
 }
-CImage medianFilter(CImage& image1, int maskSize, int Smax)
+CImg<int> medianFilter(CImg<int> &image1, int maskSize, int Smax)
 {
-	CImage result = image1;
+	CImg<int> result = image1;
 	for (int i = 0; i < image1.width(); i++)
 	{
 		for (int j = 0; j < image1.height(); j++)
