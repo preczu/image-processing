@@ -31,16 +31,16 @@ void help() {
     "   --shrink        make image smaller by value bigger than zero\n"
     "   --enlarge       make image bigger by value from zero to three\n \n"
     "   usage: image-processing <command> <image_1> <image_2>\n"
-    "   --mse           apply min filter\n"
-    "   --pmse          apply max filter\n"
-    "   --snr           apply adaptive median filter filter\n"
-    "   --psnr          calculate mean square error\n"
-    "   --md            calculate peak mean square error\n \n"
+    "   --mse           calculate mean square error\n"
+    "   --pmse          calculate peak mean square error\n"
+    "   --snr           calculate signal to noise ratio filter\n"
+    "   --psnr          calculate peak signal to noise ratio\n"
+    "   --md            calculate maximum difference\n \n"
     "     usage: image-processing <command> <maskSize> <smax> <name_of_edited_image>\n"
-    "   --adaptive      calculate signal to noise ratio\n \n"
+    "   --adaptive      apply adaptive median filter\n \n"
     "     usage: image-processing <command> <maskSize> <name_of_edited_image> <name_of_edited_image>\n"   
-    "   --min           calculate peak signal to noise ratio\n"
-    "   --max           calculate maximum difference\n";
+    "   --min           apply min filter\n"
+    "   --max           apply max filter\n";
 }
 
 void displaying() {
@@ -357,7 +357,6 @@ void input(int argc, char* argv[]) {
             img.save("original.bmp");
             img = minFilter(img, value);               //implementing the function
             img.save("modified.bmp");                  //saving the resultant image in folder "../out"
-            img.save(argv[4]);                         //saving the resultant image with a name given as an input
         }
                        
             displaying();                              //displaying pictures
@@ -382,9 +381,7 @@ void input(int argc, char* argv[]) {
             img.save("original.bmp");
             img = maxFilter(img, value);               //implementing the function
             img.save("modified.bmp");                  //saving the resultant image in folder "../out"
-            img.save(argv[4]);                         //saving the resultant image with a name given as an input
-        }
-                       
+        }          
             displaying();                              //displaying pictures
     }
 
@@ -398,9 +395,9 @@ void input(int argc, char* argv[]) {
                 img1.save("original.bmp.");               
                 CImg<int> img2(argv[3]);                      
                 img2.save("modified.bmp");
-                cout << "Mean square error: " << mse(img1,img2) << endl;  
+                cout << "Mean square error: " << mse(img1,img2) << "\n" << endl;  
             }           
-            displaying();                              
+            //displaying();                              
         }
         else help();
     }
@@ -415,9 +412,9 @@ void input(int argc, char* argv[]) {
                 img1.save("original.bmp.");               
                 CImg<int> img2(argv[3]);                               
                 img2.save("modified.bmp");
-                cout << "Peak mean square error: " << pmse(img1,img2) << endl;  
+                cout << "Peak mean square error: " << pmse(img1,img2) << "\n" << endl;  
             }           
-            displaying();                                
+            //displaying();                                
         }
         else help();
     }
@@ -432,9 +429,9 @@ void input(int argc, char* argv[]) {
                 img1.save("original.bmp.");               
                 CImg<int> img2(argv[3]);                               
                 img2.save("modified.bmp");
-                cout << "Signal to noise ratio: " << snr(img1,img2) << endl;  
+                cout << "Signal to noise ratio: " << snr(img1,img2) << "\n" << endl;  
             }           
-            displaying();                                
+            //displaying();                                
         }
         else help();
     }
@@ -449,9 +446,9 @@ void input(int argc, char* argv[]) {
                 img1.save("original.bmp.");               
                 CImg<int> img2(argv[3]);                               
                 img2.save("modified.bmp");
-                cout << "Peak signal to noise ratio: " << psnr(img1,img2) << endl;  
+                cout << "Peak signal to noise ratio: " << psnr(img1,img2) << "\n" << endl;  
             }           
-            displaying();                                
+            //displaying();                                
         }
         else help();
     }
@@ -466,9 +463,9 @@ void input(int argc, char* argv[]) {
                 img1.save("original.bmp.");               
                 CImg<int> img2(argv[3]);                               
                 img2.save("modified.bmp");
-                cout << "Maximum difference: " << md(img1,img2) << endl;  
+                cout << "Maximum difference: " << md(img1,img2) << "\n" << endl;  
             }           
-            displaying();                                
+            //displaying();                                
         }
         else help();
     }

@@ -24,7 +24,7 @@ float mse(CImg<int> &image1, CImg<int> &image2)
 			int c1 = getColor(i, j, image1);
 			int c2 = getColor(i, j, image2);
 			int c = c1 - c2;
-			int x = c * c;
+			//int x = c * c;
 			result = result + c * c;
 		}
 	}
@@ -47,8 +47,8 @@ float pmse(CImg<int> &image1, CImg<int> &image2)
 			}
 		}
 	}
-	float t = maxVal * maxVal;
-	float x = mse(image1, image2);
+	//float t = maxVal * maxVal;
+	//float x = mse(image1, image2);
 	return mse(image1, image2) / (maxVal*maxVal);
 }
 float snr(CImg<int> &image1, CImg<int> &image2)
@@ -64,7 +64,7 @@ float snr(CImg<int> &image1, CImg<int> &image2)
 		{
 			int c = getColor(i, j, image1);
 			int c2 = getColor(i, j, image2);
-			s1 = s1 + c * c;//tu sie przekr�ca� licznik typu danych
+			s1 = s1 + c * c;
 			s2 = s2 + (c - c2)*(c - c2);
 		}
 	}
@@ -78,7 +78,6 @@ float psnr(CImg<int> &image1, CImg<int> &image2)
 	float result = 0;
 	float maxVal = 0;
 	float sum = 0, sum2 = 0;
-	//wiki
 	for (int i = 0; i < image1.width(); i++)
 	{
 
@@ -93,20 +92,6 @@ float psnr(CImg<int> &image1, CImg<int> &image2)
 		float x = mse(image1, image2);
 		return 10 * log10(maxVal*maxVal / mse(image1, image2));
 	}
-	/////instrukcja
-	//for (int i = 0; i < image1.width(); i++)
-	//{
-
-	//	for (int j = 0; j < image1.height(); j++)
-	//	{
-
-	//		sum += (maxVal*maxVal);
-		/*auto c1 = getColor(i, j, image1), c2 = getColor(i, j, image2);
-		auto c = c1 - c2;
-		sum2 = sum2 + c * c;*/
-	//	}
-	//}
-		//return 10 * log10(sum/sum2);
 
 }
 float md(CImg<int> &image1, CImg<int> &image2)
@@ -263,10 +248,10 @@ CImg<int> medianFilter(CImg<int> &image1, int maskSize, int Smax)
 	{
 		for (int j = 0; j < image1.height(); j++)
 		{
-			auto color = singleMedian(image1, maskSize, Smax, i, j);
-			auto r = color & 255;
-			auto g = (color >> 8) & 255;
-			auto b = (color >> 16) & 255;
+			int color = singleMedian(image1, maskSize, Smax, i, j);
+			int r = color & 255;
+			int g = (color >> 8) & 255;
+			int b = (color >> 16) & 255;
 			result(i, j, 0, 0) = r;
 			result(i, j, 0, 1) = g;
 			result(i, j, 0, 2) = b;
