@@ -1,20 +1,13 @@
 #include <iostream>
 #include "../../lib/CImg.templ"
 #include "Filters.h"
-#include <vector>
-#include <algorithm>
 
 using namespace cimg_library;
 using namespace std;
 
 int getColor(int x, int y, CImg<int> &image)
 {
-	int color = 0;
-	for (int c = 0; c < image.spectrum(); c++)
-	{
-		color = color + (x,y,0,image(x,y,0,c));
-	}
-	return color;
+	return image(x, y, 0, 0) + (image(x, y, 0, 1) << 8) + (image(x, y, 0, 2) << 16);
 }
 
 float mse(CImg<int> &image1, CImg<int> &image2)
@@ -85,7 +78,6 @@ float psnr(CImg<int> &image1, CImg<int> &image2)
 	float result = 0;
 	float maxVal = 0;
 	float sum = 0, sum2 = 0;
-	//other
 	for (int i = 0; i < image1.width(); i++)
 	{
 
@@ -100,20 +92,6 @@ float psnr(CImg<int> &image1, CImg<int> &image2)
 		float x = mse(image1, image2);
 		return 10 * log10(maxVal*maxVal / mse(image1, image2));
 	}
-	//instrukcja
-	// for (int i = 0; i < image1.width(); i++)
-	// {
-
-	// 	for (int j = 0; j < image1.height(); j++)
-	// 	{
-
-	// 		sum += (maxVal*maxVal);
-	// 	auto c1 = getColor(i, j, image1), c2 = getColor(i, j, image2);
-	// 	auto c = c1 - c2;
-	// 	sum2 = sum2 + c * c;
-	// 	}
-	// }
-	// 	return 10 * log10(sum/sum2);
 
 }
 float md(CImg<int> &image1, CImg<int> &image2)
@@ -143,15 +121,16 @@ int getMinColor(int x, int y, int maskSize, CImg<int> &image1)
 	{
 		for (int j = y - maskSize / 2; j <= y + maskSize / 2; j++)
 		{
-			for (int c = 0; c < image1.spectrum(); c++ )
-			{
 			if (i < 0 || j < 0 || i >= image1.width() || j >= image1.height())
 			{
 				continue;
 			}
-			
-			result = getColor(i, j, image1);
-			
+			auto color = getColor(i, j, image1);
+			auto r = color & 255;
+			auto g = (color >> 8) & 255;
+			auto b = (color >> 16) & 255;
+			if (result == 0 || color < result) {
+				result = color;
 			}
 		}
 	}
