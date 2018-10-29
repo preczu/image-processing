@@ -1,13 +1,20 @@
 #include <iostream>
 #include "../../lib/CImg.templ"
 #include "Filters.h"
+#include <vector>
+#include <algorithm>
 
 using namespace cimg_library;
 using namespace std;
 
 int getColor(int x, int y, CImg<int> &image)
 {
-	return image(x, y, 0, 0) + (image(x, y, 0, 1) << 8) + (image(x, y, 0, 2) << 16);
+	int color = 0;
+	for (int c = 0; c < image.spectrum(); c++)
+	{
+		color = color + (x,y,0,image(x,y,0,c));
+	}
+	return color;
 }
 
 float mse(CImg<int> &image1, CImg<int> &image2)
@@ -78,6 +85,7 @@ float psnr(CImg<int> &image1, CImg<int> &image2)
 	float result = 0;
 	float maxVal = 0;
 	float sum = 0, sum2 = 0;
+	//other
 	for (int i = 0; i < image1.width(); i++)
 	{
 
@@ -92,6 +100,20 @@ float psnr(CImg<int> &image1, CImg<int> &image2)
 		float x = mse(image1, image2);
 		return 10 * log10(maxVal*maxVal / mse(image1, image2));
 	}
+	//instrukcja
+	// for (int i = 0; i < image1.width(); i++)
+	// {
+
+	// 	for (int j = 0; j < image1.height(); j++)
+	// 	{
+
+	// 		sum += (maxVal*maxVal);
+	// 	auto c1 = getColor(i, j, image1), c2 = getColor(i, j, image2);
+	// 	auto c = c1 - c2;
+	// 	sum2 = sum2 + c * c;
+	// 	}
+	// }
+	// 	return 10 * log10(sum/sum2);
 
 }
 float md(CImg<int> &image1, CImg<int> &image2)
@@ -121,16 +143,15 @@ int getMinColor(int x, int y, int maskSize, CImg<int> &image1)
 	{
 		for (int j = y - maskSize / 2; j <= y + maskSize / 2; j++)
 		{
+			for (int c = 0; c < image1.spectrum(); c++ )
+			{
 			if (i < 0 || j < 0 || i >= image1.width() || j >= image1.height())
 			{
 				continue;
 			}
-			auto color = getColor(i, j, image1);
-			auto r = color & 255;
-			auto g = (color >> 8) & 255;
-			auto b = (color >> 16) & 255;
-			if (result == 0 || color < result) {
-				result = color;
+			
+			result = getColor(i, j, image1);
+			
 			}
 		}
 	}
@@ -180,38 +201,45 @@ int getMedianColor(int x, int y, int maskSize, CImg<int> &image1)
 	}
 	return (numbers[numbers.size() / 2] + numbers[numbers.size() / 2 + 1]);
 }
-CImg<int> minFilter(CImg<int> &image1, int maskSize)
-{
-	CImg<int> result = image1;
-	for (int i = 0; i < image1.width(); i++)
-	{
-		for (int j =0; j < image1.height(); j++)
-		{
-			auto color = getMinColor(i, j, maskSize, image1);
-			auto r = color & 255;
-			auto g = (color >> 8) & 255;
-			auto b = (color >> 16) & 255;
-			result(i, j, 0, 0) = r;
-			result(i, j, 0, 1) = g;
-			result(i, j, 0, 2) = b;
+CImg<int> minFilter(CImg<int> &image1, int maskSize) {
+	CImg<int> result(image1.width(), image1.height(), 1, 3, 0);
+	vector<int> pixels;
+	for (int i = 0; i < image1.width(); i++) {
+		for (int j = 0; j < image1.height(); j++) { 
+			for (int c = 0; c < image1.spectrum(); c++) {
+				for (int x = 0; x < maskSize; x++){
+					for (int y = 0; y < maskSize; y++) {
+						if(i+x-1>=0 && i+x-1 < image1.width() && j+y-1 >=0 && j+y-1 <image1.height()) {
+							pixels.push_back(image1(i+x-1,j+y-1,0,c));
+						} 						
+					}
+				}
+				sort(pixels.begin(),pixels.end());	
+				result(i,j,0,c) = pixels[0];			
+				pixels.clear();
+			}
 		}
 	}
 	return result;
 }
 CImg<int> maxFilter(CImg<int> &image1, int maskSize)
 {
-	CImg<int> result = image1;
-	for (int i = maskSize / 2; i < image1.width() - maskSize / 2; i++)
-	{
-		for (int j = maskSize / 2; j < image1.height() - maskSize / 2; j++)
-		{
-			auto color = getMaxColor(i, j, maskSize, image1);
-			auto r = color & 255;
-			auto g = (color >> 8) & 255;
-			auto b = (color >> 16) & 255;
-			result(i, j, 0, 0) = r;
-			result(i, j, 0, 1) = g;
-			result(i, j, 0, 2) = b;
+	CImg<int> result(image1.width(), image1.height(), 1, 3, 0);
+	vector<int> pixels;
+	for (int i = 0; i < image1.width(); i++) {
+		for (int j = 0; j < image1.height(); j++) { 
+			for (int c = 0; c < image1.spectrum(); c++) {
+				for (int x = 0; x < maskSize; x++){
+					for (int y = 0; y < maskSize; y++) {
+						if(i+x-1>=0 && i+x-1 < image1.width() && j+y-1 >=0 && j+y-1 <image1.height()) {
+							pixels.push_back(image1(i+x-1,j+y-1,0,c));
+						} 	
+					}
+				}
+				sort(pixels.begin(),pixels.end());	
+				result(i,j,0,c) = pixels[pixels.size()-1];			
+				pixels.clear();
+			}
 		}
 	}
 	return result;

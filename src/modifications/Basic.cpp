@@ -20,7 +20,7 @@ CImg<int> brightness(CImg<int> img, float value) {
 
 CImg<int> contrast(CImg<int> img, float value) { 
     //if (value < 0) {cout << "Contrast value must be greater than 0 "; exit(0);}
-    float factor=(259*(value+255))/(255*(259-value));
+    float factor=value / 100;//(259*(value+255))/(255*(259-value));
     for (int i=0; i<img.width(); i++){
         for (int j=0;j<img.height();j++){
             for (int k=0;k<3;k++){
