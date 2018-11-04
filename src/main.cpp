@@ -38,7 +38,7 @@ void help() {
     "   --md            calculate maximum difference\n \n"
     "     usage: image-processing <command> <maskSize> <smax> <name_of_edited_image>\n"
     "   --adaptive      apply adaptive median filter\n \n"
-    "     usage: image-processing <command> <maskSize> <name_of_edited_image> <name_of_edited_image>\n"   
+    "     usage: image-processing <command> <maskSize> <name_of_image_to_edit> <name_of_edited_image>\n"   
     "   --min           apply min filter\n"
     "   --max           apply max filter\n";
 }

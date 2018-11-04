@@ -5,7 +5,7 @@
 using namespace cimg_library;
 using namespace std;
 
-/*int getColor(int x, int y, CImg<int> &image)
+int getColor(int x, int y, CImg<int> &image)
 {
 	return image(x, y, 0, 0) + (image(x, y, 0, 1) << 8) + (image(x, y, 0, 2) << 16);
 }
@@ -118,7 +118,7 @@ float md(CImg<int> &image1, CImg<int> &image2)
 }
 int getMinColor(int x, int y, int maskSize, CImg<int> &image1)
 {
-	int result;
+	int result = 0;
 	for (int i = x - maskSize / 2; i <= x + maskSize / 2; i++)
 	{
 		for (int j = y - maskSize / 2; j <= y + maskSize / 2; j++)
@@ -127,15 +127,15 @@ int getMinColor(int x, int y, int maskSize, CImg<int> &image1)
 			{
 				continue;
 			}
-			vector<int> color = getColorA(i, j, image1);
-			sort(color.begin(),color.end());	
-			result = color[0];
-			
-			if (result == 0 || color[0] < result) {
-				result = color[0];
+			auto color = getColor(i, j, image1);
+			auto r = color & 255;
+			auto g = (color >> 8) & 255;
+			auto b = (color >> 16) & 255;
+			if (result ==0 || color < result) {
+				result = color;
 			}
 		}
-	
+	}
 	return result;
 }
 int getMaxColor(int x, int y, int maskSize, CImg<int> &image1) {
@@ -180,7 +180,7 @@ int getMedianColor(int x, int y, int maskSize, CImg<int> &image1)
 		return numbers[numbers.size() / 2];
 	}
 	return (numbers[numbers.size() / 2] + numbers[numbers.size() / 2 + 1]);
-}*/
+}
 CImg<int> minFilter(CImg<int> &image1, int maskSize) {
 	CImg<int> result(image1.width(), image1.height(), 1, 3, 0);
 	vector<int> pixels;
@@ -224,7 +224,7 @@ CImg<int> maxFilter(CImg<int> &image1, int maskSize)
 	}
 	return result;
 }
-/*
+
 int singleMedian(CImg<int> &image1, int maskSize, int Smax, int x, int y)
 {
 	int median = getMedianColor(x, y, maskSize, image1);
@@ -260,19 +260,4 @@ CImg<int> medianFilter(CImg<int> &image1, int maskSize, int Smax) {
 		}
 	}
 	return result;
-}*/
-float mse(CImg<int> &image1, CImg<int> &image2) {
-
-}
-float pmse(CImg<int> &image1, CImg<int> &image2) {
-
-}
-float snr(CImg<int> &image1, CImg<int> &image2) {
-
-}
-float psnr(CImg<int> &image1, CImg<int> &image2) {
-
-}
-float md(CImg<int> &image1, CImg<int> &image2) {
-	
 }
