@@ -5,10 +5,12 @@
 using namespace cimg_library;
 using namespace std;
 
-int getColor(int x, int y, CImg<int> &image)
+/*int getColor(int x, int y, CImg<int> &image)
 {
 	return image(x, y, 0, 0) + (image(x, y, 0, 1) << 8) + (image(x, y, 0, 2) << 16);
 }
+
+
 
 float mse(CImg<int> &image1, CImg<int> &image2)
 {
@@ -116,7 +118,7 @@ float md(CImg<int> &image1, CImg<int> &image2)
 }
 int getMinColor(int x, int y, int maskSize, CImg<int> &image1)
 {
-	int result = 0;
+	int result;
 	for (int i = x - maskSize / 2; i <= x + maskSize / 2; i++)
 	{
 		for (int j = y - maskSize / 2; j <= y + maskSize / 2; j++)
@@ -125,19 +127,18 @@ int getMinColor(int x, int y, int maskSize, CImg<int> &image1)
 			{
 				continue;
 			}
-			auto color = getColor(i, j, image1);
-			auto r = color & 255;
-			auto g = (color >> 8) & 255;
-			auto b = (color >> 16) & 255;
-			if (result == 0 || color < result) {
-				result = color;
+			vector<int> color = getColorA(i, j, image1);
+			sort(color.begin(),color.end());	
+			result = color[0];
+			
+			if (result == 0 || color[0] < result) {
+				result = color[0];
 			}
 		}
-	}
+	
 	return result;
 }
-int getMaxColor(int x, int y, int maskSize, CImg<int> &image1)
-{
+int getMaxColor(int x, int y, int maskSize, CImg<int> &image1) {
 	int result = 0;
 	for (int i = x - maskSize / 2; i <= x + maskSize / 2; i++)
 	{
@@ -179,7 +180,7 @@ int getMedianColor(int x, int y, int maskSize, CImg<int> &image1)
 		return numbers[numbers.size() / 2];
 	}
 	return (numbers[numbers.size() / 2] + numbers[numbers.size() / 2 + 1]);
-}
+}*/
 CImg<int> minFilter(CImg<int> &image1, int maskSize) {
 	CImg<int> result(image1.width(), image1.height(), 1, 3, 0);
 	vector<int> pixels;
@@ -223,18 +224,19 @@ CImg<int> maxFilter(CImg<int> &image1, int maskSize)
 	}
 	return result;
 }
+/*
 int singleMedian(CImg<int> &image1, int maskSize, int Smax, int x, int y)
 {
-	auto median = getMedianColor(x, y, maskSize, image1);
-	auto minColor = getMinColor(x, y, maskSize, image1);
-	auto maxColor = getMaxColor(x, y, maskSize, image1);
-	auto color = getColor(x, y, image1);
+	int median = getMedianColor(x, y, maskSize, image1);
+	int minColor = getMinColor(x, y, maskSize, image1);
+	int maxColor = getMaxColor(x, y, maskSize, image1);
+	int color = getColor(x, y, image1);
 	int curSize = maskSize;
-	auto a1 = median - minColor;
-	auto a2 = median - maxColor;
+	int a1 = median - minColor;
+	int a2 = median - maxColor;
 	if (a1 > 0 && a2 < 0) {
-		auto b1 = color - minColor;
-		auto b2 = color - maxColor;
+		int b1 = color - minColor;
+		int b2 = color - maxColor;
 		if (b1 > 0 && b2 < 0) {
 			return color;
 		}
@@ -248,21 +250,29 @@ int singleMedian(CImg<int> &image1, int maskSize, int Smax, int x, int y)
 	}
 	return color;
 }
-CImg<int> medianFilter(CImg<int> &image1, int maskSize, int Smax)
-{
+CImg<int> medianFilter(CImg<int> &image1, int maskSize, int Smax) {
 	CImg<int> result = image1;
-	for (int i = 0; i < image1.width(); i++)
-	{
-		for (int j = 0; j < image1.height(); j++)
-		{
-			int color = singleMedian(image1, maskSize, Smax, i, j);
-			int r = color & 255;
-			int g = (color >> 8) & 255;
-			int b = (color >> 16) & 255;
-			result(i, j, 0, 0) = r;
-			result(i, j, 0, 1) = g;
-			result(i, j, 0, 2) = b;
+	for (int i = 0; i < image1.width(); i++) {
+		for (int j = 0; j < image1.height(); j++) {
+			for (int c = 0; c < image1.spectrum(); c++) {
+				//int A1 = median - minColo
+			}
 		}
 	}
 	return result;
+}*/
+float mse(CImg<int> &image1, CImg<int> &image2) {
+
+}
+float pmse(CImg<int> &image1, CImg<int> &image2) {
+
+}
+float snr(CImg<int> &image1, CImg<int> &image2) {
+
+}
+float psnr(CImg<int> &image1, CImg<int> &image2) {
+
+}
+float md(CImg<int> &image1, CImg<int> &image2) {
+	
 }

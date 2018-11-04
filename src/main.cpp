@@ -4,7 +4,7 @@
 #include "modifications/Basic.h"
 #include "modifications/Geometric.h"
 #include "modifications/Filters.h"
-
+#include "modifications/Adaptive.h"
 
 using namespace std;
 using namespace cimg_library;
@@ -332,7 +332,7 @@ void input(int argc, char* argv[]) {
         if (argc == 5){              
             CImg<int> img(argv[4]);                         //defining an image from input                
             img.save("original.bmp");
-            img = medianFilter(img, maskValue, smax);          //implementing the function
+            img = adaptive(img, maskValue, smax);           //implementing the function
             img.save("modified.bmp");                       //saving the resultant image in folder "../out"
         }
                        
