@@ -323,20 +323,21 @@ void input(int argc, char* argv[]) {
     }
 
     else if (string("--adaptive").compare(argv[1]) == 0){
-        if( numberOfArgc == 2 || numberOfArgc == 3 || numberOfArgc == 4){
+        if( numberOfArgc == 2 || numberOfArgc == 3 ){
                 help();
                 exit(0);
         }
-        float maskValue;                                    //it will be used to check if    
-        maskValue = checkFloatValue(argv[2]);               //checking whether argv[2] is any possible value and converting it into float
         float smax;
-        smax = checkFloatValue(argv[3]);
+        smax = checkFloatValue(argv[2]);
 
 
-        if (argc == 5){              
-            CImg<int> img(argv[4]);                         //defining an image from input                
+        if (argc == 4){
+            CImg<int> img(argv[3]);                         //defining an image from input
             img.save("original.bmp");
-            img = adaptive(img, maskValue, smax);           //implementing the function
+            img = adaptive(img, smax);           //implementing the function
+            img = adaptive(img, smax);           //implementing the function
+            img = adaptive(img, smax);           //implementing the function
+            cout << "i" << endl;
             img.save("modified.bmp");                       //saving the resultant image in folder "../out"
         }
                        

@@ -10,5 +10,4 @@ using namespace std;
 using namespace cimg_library;
 using namespace std;
 
-int zxyFun(int x, int y, CImg<int> &image);
-CImg<int> adaptive(CImg<int> &image, float maskValue, float smax);
+CImg<int> adaptive(CImg<int> &image, int smax);

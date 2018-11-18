@@ -6,60 +6,72 @@
 using namespace cimg_library;
 using namespace std;
 
-int zxyFun(int x, int y, CImg<int> &image) {
-    int result = 0;
-    for (int c = 0; c < image.spectrum(); c++) {
-        result += image(x, y, 0, c);
-    }
-    return result;
-}
 
-CImg<int> adaptive(CImg<int> &image, float maskValue, float smax) {
+CImg<int> adaptive(CImg<int> &image, int smax) {
     CImg<int> result(image.width(), image.height(), 1, image.spectrum());
-    vector<int> pixels;
-    int windowSize = maskValue;
+    //vector<int> pixels;
+    int pixels[(smax*2+1)*(smax*2+1)];
+    //sort(intArray, intArray + SIZE);
+
+
     for (int i = 0; i < image.width(); i++) {
+        cout << i << endl; cout.flush();
         for (int j = 0; j < image.height(); j++) {
-            for (int c = 0; c < image.spectrum(); c++){
-                for (int x = 0; x < maskValue; x++){
-					for (int y = 0; y < maskValue; y++) {
-						if(i+x-1>=0 && i+x-1 < image.width() && j+y-1 >=0 && j+y-1 <image.height()) {
-							pixels.push_back(image(i+x-1,j+y-1,0,c));
-						} 						
-					}
-				}
-				sort(pixels.begin(),pixels.end());	
-				int zmin = pixels[0];
-                int zmax = pixels[pixels.size()-1];
-                int zmed;
-                if (pixels.size()%2 == 1) {
-                    zmed = pixels[pixels.size()/2];
-                }
-                else if (pixels.size()%2 == 0) {
-                    int pom1;
-                    int pom2;
-                    zmed = (pixels[pixels.size()/2] + pixels[pixels.size()/2+1])/2;	
-                }
-                int zxy = zxyFun(i,j,image);
-                
-                int a1 = zmed - zmin;
-                int a2 = zmed - zmax;
-                if (a1 > 0 && a2 < 0){
-                    int b1 = zxy - zmin;
-                    int b2 = zxy - zmax;
-                    if (b1 > 0 && b2 < 0){
-                        result ( i, j, 0, c) = zxy;
+
+
+            for (int c = 0; c < image.spectrum(); c++) {
+                int currDepth = 1;
+
+                while (true) {
+                    int pixelSize = 0;
+                    for (int x = 0; x < currDepth * 2 + 1; x++) {
+                        for (int y = 0; y < currDepth * 2 + 1; y++) {
+                            if (i + x - currDepth >= 0 && i + x - currDepth < image.width() &&
+                                j + y - currDepth >= 0 &&
+                                j + y - currDepth < image.height()) {
+                                pixels[pixelSize] = (image(i + x - currDepth, j + y - currDepth, 0, c));
+                                pixelSize++;
+                            }
+                        }
                     }
-                    else result ( i, j, 0, c) = zmed;
-                }
-                else {
-                    windowSize++;
-                    if (windowSize <= smax) {
-                        adaptive(image, windowSize, smax);
+
+                    sort(pixels, pixels + pixelSize);
+                    int zmin = pixels[0];
+                    int zmax = pixels[pixelSize - 1];
+                    int zmed;
+                    if (pixelSize % 2 == 1) {
+                        zmed = pixels[pixelSize / 2];
+                    } else if (pixelSize % 2 == 0) {
+                        zmed = (pixels[pixelSize / 2] + pixels[pixelSize / 2 + 1]) / 2;
                     }
-                    else result(i, j, 0, c) = zmed;
+                    int zxy = image(i, j, 0, c);
+
+                    int a1 = zmed - zmin;
+                    int a2 = zmed - zmax;
+                    if (a1 > 0 && a2 < 0) {
+                        int b1 = zxy - zmin;
+                        int b2 = zxy - zmax;
+                        if (b1 > 0 && b2 < 0) {
+                            result(i, j, 0, c) = zxy;
+
+                        }
+                        else {
+                            result(i, j, 0, c) = zmed;
+                        }
+                        break;
+                    }
+                    else {
+                        currDepth++;
+                        if (currDepth <= smax) {
+                            pixelSize = 0;
+                            continue;
+                        }
+                        else {
+                            result(i, j, 0, c) = zxy;
+                            break;
+                        }
+                    }
                 }
-				pixels.clear();
             }
         }
     }
