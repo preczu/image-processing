@@ -5,9 +5,11 @@
 #include "modifications/Geometric.h"
 #include "modifications/Filters.h"
 #include "modifications/Adaptive.h"
+#include </opt/X11/include/X11/Xlib.h>
 
 using namespace std;
 using namespace cimg_library;
+
 
 void help() {
     cout << " \n"
@@ -44,15 +46,15 @@ void help() {
 }
 
 void displaying() {
-        CImg<int> img1("../out/original.bmp");
-        CImg<int> img2("../out/modified.bmp");
+        CImg<int> img1("./original.bmp");
+        CImg<int> img2("./modified.bmp");
         img1.append(img2).display("Image");
 }
 
 float checkFloatValue(char* val){
     float number = atof(val);
     if (number == 0){
-        if (val != "0"){
+        if (val != 0){
             cout << "You forgot to give the value! \n" << endl;
             help();
             exit(0);
@@ -66,7 +68,9 @@ void input(int argc, char* argv[]) {
     int numberOfArgc = argc;
 
     if (string("--help").compare(argv[1]) == 0) {
-        help();
+//        help();
+
+        cout << "You forgot tco give the value! \n" << endl;
     }
 
     else if (string("--brightness").compare(argv[1]) == 0) {
@@ -75,10 +79,10 @@ void input(int argc, char* argv[]) {
                 exit(0);
             }
             
-            float value;                                    //it will be used to check if    
+            float value;                                    //it will be used to check if
             value = checkFloatValue(argv[2]);               //checking whether argv[2] is any possible value and converting it into float
             if(argc == 3){
-                CImg<int> img("../src/lenac.bmp");
+                CImg<int> img("/Users/preczu/Documents/CLionProjects/image-processing/src/lenac.bmp");
                 img.save("original.bmp");                   //saving an image in folder "../out"
                 img = brightness(img, value);               //implementing the function
                 img.save("modified.bmp");                   //saving the resultant image in folder "../out"
@@ -109,7 +113,7 @@ void input(int argc, char* argv[]) {
             float value;                                    //it will be used to check if    
             value = checkFloatValue(argv[2]);               //checking whether argv[2] is any possible value and converting it into float
             if(argc == 3){
-                CImg<int> img("../src/lenac.bmp");
+                CImg<int> img("./src/lenac.bmp");
                 img.save("original.bmp");                   //saving an image in folder "../out"
                 img = contrast(img, value);                 //implementing the function
                 img.save("modified.bmp");                   //saving the resultant image in folder "../out"
@@ -135,7 +139,7 @@ void input(int argc, char* argv[]) {
     else if (string("--negative").compare(argv[1]) == 0) {
         if (numberOfArgc < 5){
             if(argc == 2){
-                CImg<int> img("../src/lenac.bmp");
+                CImg<int> img("./src/lenac.bmp");
                 img.save("original.bmp");                   //saving an image in folder "../out"
                 img = negative(img);                        //implementing the function
                 img.save("modified.bmp");                   //saving the resultant image in folder "../out"
@@ -161,7 +165,7 @@ void input(int argc, char* argv[]) {
     else if (string("--hflip").compare(argv[1]) == 0) {
         if (numberOfArgc < 5){
             if(argc == 2){
-                CImg<int> img("../src/lenac.bmp");
+                CImg<int> img("./src/lenac.bmp");
                 img.save("original.bmp");                   //saving an image in folder "../out"
                 img = hflip(img);                           //implementing the function
                 img.save("modified.bmp");                   //saving the resultant image in folder "../out"
@@ -189,7 +193,7 @@ void input(int argc, char* argv[]) {
     else if (string("--vflip").compare(argv[1]) == 0) {
         if (numberOfArgc < 5){
             if(argc == 2){
-                CImg<int> img("../src/lenac.bmp");
+                CImg<int> img("./src/lenac.bmp");
                 img.save("original.bmp");                   //saving an image in folder "../out"
                 img = vflip(img);                           //implementing the function
                 img.save("modified.bmp");                   //saving the resultant image in folder "../out"
@@ -217,7 +221,7 @@ void input(int argc, char* argv[]) {
     else if (string("--dflip").compare(argv[1]) == 0) {
         if (numberOfArgc < 5){
             if(argc == 2){
-                CImg<int> img("../src/lenac.bmp");
+                CImg<int> img("./src/lenac.bmp");
                 img.save("original.bmp");                   //saving an image in folder "../out"
                 img = dflip(img);                           //implementing the function
                 img.save("modified.bmp");                   //saving the resultant image in folder "../out"
@@ -256,7 +260,7 @@ void input(int argc, char* argv[]) {
             }
             else{
                 if(argc == 3){
-                    CImg<int> img("../src/lenac.bmp");
+                    CImg<int> img("./src/lenac.bmp");
                     img.save("original.bmp");                   //saving an image in folder "../out"
                     img = shrink(img, value);                   //implementing the function
                     img.save("modified.bmp");                   //saving the resultant image in folder "../out"
@@ -294,7 +298,7 @@ void input(int argc, char* argv[]) {
             }
             else {
                 if(argc == 3){
-                    CImg<int> img("../src/lenac.bmp");
+                    CImg<int> img("./src/lenac.bmp");
                     img.save("original.bmp");                   //saving an image in folder "../out"
                     img = enlarge(img, value);                  //implementing the function
                     img.save("modified.bmp");                   //saving the resultant image in folder "../out"
