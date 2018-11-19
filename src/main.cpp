@@ -335,8 +335,8 @@ void input(int argc, char* argv[]) {
             CImg<int> img(argv[3]);                         //defining an image from input
             img.save("original.bmp");
             img = adaptive(img, smax);           //implementing the function
-            img = adaptive(img, smax);           //implementing the function
-            img = adaptive(img, smax);           //implementing the function
+            //img = adaptive(img, smax);           //implementing the function
+            //img = adaptive(img, smax);           //implementing the function
             cout << "i" << endl;
             img.save("modified.bmp");                       //saving the resultant image in folder "../out"
         }

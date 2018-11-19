@@ -6,19 +6,12 @@
 using namespace cimg_library;
 using namespace std;
 
-
 CImg<int> adaptive(CImg<int> &image, int smax) {
     CImg<int> result(image.width(), image.height(), 1, image.spectrum());
-    //vector<int> pixels;
     int pixels[(smax*2+1)*(smax*2+1)];
-    //sort(intArray, intArray + SIZE);
-
 
     for (int i = 0; i < image.width(); i++) {
-        cout << i << endl; cout.flush();
         for (int j = 0; j < image.height(); j++) {
-
-
             for (int c = 0; c < image.spectrum(); c++) {
                 int currDepth = 1;
 
@@ -34,7 +27,6 @@ CImg<int> adaptive(CImg<int> &image, int smax) {
                             }
                         }
                     }
-
                     sort(pixels, pixels + pixelSize);
                     int zmin = pixels[0];
                     int zmax = pixels[pixelSize - 1];
